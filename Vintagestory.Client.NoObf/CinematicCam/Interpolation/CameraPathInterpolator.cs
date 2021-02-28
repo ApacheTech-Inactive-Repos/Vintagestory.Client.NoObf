@@ -11,13 +11,13 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
     /// </summary>
     public class CameraPathInterpolator
     {
+        private readonly List<CameraPoint> _cameraPath;
         private readonly ICameraPointInterpolator _interpolator;
         private readonly int _nodesToTravel;
-        private readonly List<CameraPoint> _cameraPath;
         private readonly CameraPoint _point;
 
         /// <summary>
-        ///     Initialises a new instance of the <see cref="CameraPathInterpolator"/> class.
+        ///     Initialises a new instance of the <see cref="CameraPathInterpolator" /> class.
         /// </summary>
         /// <param name="points">The list of nodes along a complete camera path.</param>
         /// <param name="target">The target, if any, that the camera focusses on as it traverses the path.</param>

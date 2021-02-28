@@ -12,7 +12,10 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interfaces
         ///     This step must be done before rotational interpolation can occur.
         /// </summary>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-> still at current node, 1 -> already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-> still at current node, 1 ->
+        ///     already at next node)
+        /// </param>
         void InterpolatePosition(InterpolationNodeArray nodeList, double step);
 
         /// <summary>
@@ -20,7 +23,10 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interfaces
         ///     This step must be done before additional angle interpolation can occur.
         /// </summary>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-> still at current node, 1 -> already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-> still at current node, 1 ->
+        ///     already at next node)
+        /// </param>
         void InterpolatePolarCoordinates(InterpolationNodeArray nodeList, double step);
 
         /// <summary>
@@ -31,7 +37,10 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interfaces
         ///     be possible to include other features, such as dynamic FOV, and shader gradation.
         /// </remarks>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-> still at current node, 1 -> already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-> still at current node, 1 ->
+        ///     already at next node)
+        /// </param>
         void InterpolateAdditionAngles(InterpolationNodeArray nodeList, double step);
     }
 }

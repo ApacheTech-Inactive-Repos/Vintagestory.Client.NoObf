@@ -6,14 +6,16 @@ using Vintagestory.Client.NoObf.CinematicCam.Primitives;
 namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
 {
     /// <summary>
-    ///     Interpolates values between multiple nodes along a path, ensuring the camera always focusses on a single target point. 
+    ///     Interpolates values between multiple nodes along a path,
+    ///     ensuring the camera always focusses on a single target
+    ///     point.
     ///     Implements the <see cref="InterpolatorBase" /> base class.
     /// </summary>
     /// <seealso cref="InterpolatorBase" />
     internal class TargetInterpolator : InterpolatorBase
     {
         /// <summary>
-        ///     Initialises a new instance of the <see cref="TargetInterpolator"/> class.
+        ///     Initialises a new instance of the <see cref="TargetInterpolator" /> class.
         /// </summary>
         /// <param name="interpolator">The base interpolator to use for position and additional angles.</param>
         /// <param name="point">The camera point to transpose values into.</param>
@@ -26,7 +28,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         }
 
         /// <summary>
-        /// Gets the base interpolator to use for position and additional angles.
+        ///     Gets the base interpolator to use for position and additional angles.
         /// </summary>
         /// <value>The base interpolator to use for position and additional angles.</value>
         private ICameraPointInterpolator Interpolator { get; }
@@ -39,10 +41,13 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
 
         /// <summary>
         ///     Interpolates the XYZ position between the current and next nodes along the path.
-        /// This step must be done before rotational interpolation can occur.
+        ///     This step must be done before rotational interpolation can occur.
         /// </summary>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-» still at current node, 1 -» already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-» still at current node, 1 -»
+        ///     already at next node)
+        /// </param>
         public override void InterpolatePosition(InterpolationNodeArray nodeList, double step)
         {
             Interpolator.InterpolatePosition(nodeList, step);
@@ -50,10 +55,13 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
 
         /// <summary>
         ///     Interpolates the rotational angles between the current and next nodes along the path.
-        /// This step must be done before additional angle interpolation can occur.
+        ///     This step must be done before additional angle interpolation can occur.
         /// </summary>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-» still at current node, 1 -» already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-» still at current node, 1 -»
+        ///     already at next node)
+        /// </param>
         public override void InterpolatePolarCoordinates(InterpolationNodeArray nodeList, double step)
         {
             var pos = new Vec3d(Point.X, Point.Y, Point.Z);
@@ -66,7 +74,10 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         ///     Interpolates additional angles between the current and next nodes along the path.
         /// </summary>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-» still at current node, 1 -» already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-» still at current node, 1 -»
+        ///     already at next node)
+        /// </param>
         /// <remarks>
         ///     Currently, this only interpolates the rotation around the Z axis, however, it would
         ///     be possible to include other features, such as dynamic FOV, and shader gradation.
@@ -77,7 +88,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         }
 
         /// <summary>
-        ///     Initialises a new instance of the <see cref="TargetInterpolator"/> class.
+        ///     Initialises a new instance of the <see cref="TargetInterpolator" /> class.
         /// </summary>
         /// <param name="interpolator">The base interpolator to use for position and additional angles.</param>
         /// <param name="point">The camera point to transpose values into.</param>

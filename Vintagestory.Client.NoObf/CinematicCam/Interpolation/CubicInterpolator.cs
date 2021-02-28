@@ -4,14 +4,15 @@ using Vintagestory.Client.NoObf.CinematicCam.Primitives;
 namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
 {
     /// <summary>
-    ///     Interpolates values between multiple nodes along a path, using cubic interpolation between the current node and next node. 
+    ///     Interpolates values between multiple nodes along a path, using cubic 
+    ///     interpolation between the current node and the next node.
     ///     Implements the <see cref="InterpolatorBase" /> base class.
     /// </summary>
     /// <seealso cref="InterpolatorBase" />
     internal class CubicInterpolator : InterpolatorBase
     {
         /// <summary>
-        ///     Initialises a new instance of the <see cref="CubicInterpolator"/> class.
+        ///     Initialises a new instance of the <see cref="CubicInterpolator" /> class.
         /// </summary>
         /// <param name="point">The camera point to transpose values into.</param>
         private CubicInterpolator(CameraPoint point) : base(point)
@@ -23,7 +24,10 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         ///     This step must be done before rotational interpolation can occur.
         /// </summary>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-» still at current node, 1 -» already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-» still at current node, 1 -»
+        ///     already at next node)
+        /// </param>
         public override void InterpolatePosition(InterpolationNodeArray nodeList, double step)
         {
             Point.X = CubicCatmull(
@@ -39,7 +43,10 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         ///     This step must be done before additional angle interpolation can occur.
         /// </summary>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-» still at current node, 1 -» already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-» still at current node, 1 -»
+        ///     already at next node)
+        /// </param>
         public override void InterpolatePolarCoordinates(InterpolationNodeArray nodeList, double step)
         {
             Point.Pitch = Cubic(
@@ -52,7 +59,10 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         ///     Interpolates additional angles between the current and next nodes along the path.
         /// </summary>
         /// <param name="nodeList">A list of nodes needed for interpolation.</param>
-        /// <param name="step">The fraction of which the player has already reached the next node (0-» still at current node, 1 -» already at next node)</param>
+        /// <param name="step">
+        ///     The fraction of which the player has already reached the next node (0-» still at current node, 1 -»
+        ///     already at next node)
+        /// </param>
         /// <remarks>
         ///     Currently, this only interpolates the rotation around the Z axis, however, it would
         ///     be possible to include other features, such as dynamic FOV, and shader gradation.
@@ -64,7 +74,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         }
 
         /// <summary>
-        ///     Initialises a new instance of the <see cref="CubicInterpolator"/> class.
+        ///     Initialises a new instance of the <see cref="CubicInterpolator" /> class.
         /// </summary>
         /// <param name="point">The camera point to transpose values into.</param>
         internal static ICameraPointInterpolator Create(CameraPoint point)
