@@ -1,4 +1,5 @@
 ﻿using Vintagestory.API.MathTools;
+using Vintagestory.Client.NoObf.CinematicCam.Camera;
 using Vintagestory.Client.NoObf.CinematicCam.Extensions;
 using Vintagestory.Client.NoObf.CinematicCam.Interfaces;
 using Vintagestory.Client.NoObf.CinematicCam.Primitives;
@@ -12,7 +13,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
     ///     Implements the <see cref="InterpolatorBase" /> base class.
     /// </summary>
     /// <seealso cref="InterpolatorBase" />
-    internal class TargetInterpolator : InterpolatorBase
+    internal sealed class TargetInterpolator : InterpolatorBase
     {
         /// <summary>
         ///     Initialises a new instance of the <see cref="TargetInterpolator" /> class.
@@ -23,8 +24,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         private TargetInterpolator(ICameraPointInterpolator interpolator, CameraPoint point, Vec3d targetPos) :
             base(point)
         {
-            Interpolator = interpolator;
-            TargetPos = targetPos;
+            (Interpolator, TargetPos) = (interpolator, targetPos);
         }
 
         /// <summary>
@@ -64,10 +64,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         /// </param>
         public override void InterpolatePolarCoordinates(InterpolationNodeArray nodeList, double step)
         {
-            var pos = new Vec3d(Point.X, Point.Y, Point.Z);
-            var coords = pos.InterpolateTargetCoordinates(TargetPos);
-            Point.Pitch = coords.Pitch;
-            Point.Yaw = coords.Yaw;
+            Point.PolarCoordinates = Point.Position.InterpolateTargetCoordinates(TargetPos);
         }
 
         /// <summary>

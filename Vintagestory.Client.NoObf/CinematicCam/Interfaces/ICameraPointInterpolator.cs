@@ -5,7 +5,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interfaces
     /// <summary>
     ///     Represents an interpolator that aids calculation of camera positions along a path.
     /// </summary>
-    public interface ICameraPointInterpolator
+    internal interface ICameraPointInterpolator
     {
         /// <summary>
         ///     Interpolates the XYZ position between the current and next nodes along the path.

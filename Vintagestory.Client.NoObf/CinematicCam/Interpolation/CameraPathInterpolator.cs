@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.MathTools;
+using Vintagestory.Client.NoObf.CinematicCam.Camera;
 using Vintagestory.Client.NoObf.CinematicCam.Interfaces;
 using Vintagestory.Client.NoObf.CinematicCam.Primitives;
 
@@ -9,7 +10,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
     /// <summary>
     ///     Interpolates dynamic camera positions as it traverses a path.
     /// </summary>
-    public class CameraPathInterpolator
+    internal sealed class CameraPathInterpolator
     {
         private readonly List<CameraPoint> _cameraPath;
         private readonly ICameraPointInterpolator _interpolator;
@@ -21,7 +22,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         /// </summary>
         /// <param name="points">The list of nodes along a complete camera path.</param>
         /// <param name="target">The target, if any, that the camera focusses on as it traverses the path.</param>
-        public CameraPathInterpolator(IEnumerable<CameraPoint> points, Vec3d target = null)
+        internal CameraPathInterpolator(IEnumerable<CameraPoint> points, Vec3d target = null)
         {
             _cameraPath = points.ToList();
 
@@ -45,11 +46,11 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         ///     Calculates the camera point at the current position along the path.
         /// </summary>
         /// <param name="pathPosition">The path position.</param>
-        public CameraPoint GetPoint(double pathPosition)
+        internal CameraPoint GetPoint(double pathPosition)
         {
             var section = pathPosition * _nodesToTravel;
 
-            var section1 = (int)section;
+            var section1 = (int) section;
             if (section1 == _nodesToTravel)
                 // pathPosition unavoidably reaches the last node at the very end ->
                 // So decrement the previous node to stop the concertina effect.

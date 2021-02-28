@@ -1,4 +1,5 @@
-﻿using Vintagestory.Client.NoObf.CinematicCam.Interfaces;
+﻿using Vintagestory.Client.NoObf.CinematicCam.Camera;
+using Vintagestory.Client.NoObf.CinematicCam.Interfaces;
 
 namespace Vintagestory.Client.NoObf.CinematicCam.Primitives
 {
@@ -78,6 +79,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Primitives
             var a = -0.5 * previous + 1.5 * current - 1.5 * next + 0.5 * subsequent;
             var b = previous - 2.5 * current + 2 * next - 0.5 * subsequent;
             var c = -0.5 * previous + 0.5 * next;
+
             return ((a * step + b) * step + c) * step + current;
         }
 

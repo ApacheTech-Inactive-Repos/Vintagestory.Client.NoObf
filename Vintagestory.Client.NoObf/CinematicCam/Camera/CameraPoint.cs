@@ -1,6 +1,8 @@
 ﻿using Vintagestory.API.Common.Entities;
+using Vintagestory.API.MathTools;
+using Vintagestory.Client.NoObf.CinematicCam.Primitives;
 
-namespace Vintagestory.Client.NoObf.CinematicCam.Primitives
+namespace Vintagestory.Client.NoObf.CinematicCam.Camera
 {
     /// <summary>
     ///     Ripped from game source, and refactored to conform to basic coding standards.
@@ -14,6 +16,27 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Primitives
         internal double Y { get; set; }
         internal float Yaw { get; set; }
         internal double Z { get; set; }
+
+        internal PolarCoordinates PolarCoordinates
+        {
+            get => new PolarCoordinates(Pitch, Yaw);
+            set
+            {
+                Pitch = value.Pitch;
+                Yaw = value.Yaw;
+            }
+        }
+
+        internal Vec3d Position
+        {
+            get => new Vec3d(X, Y, Z);
+            set
+            {
+                X = value.X;
+                Y = value.Y;
+                Z = value.Z;
+            }
+        }
 
         public static CameraPoint FromEntityPos(EntityPos pos)
         {

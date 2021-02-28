@@ -1,4 +1,6 @@
-﻿using Vintagestory.Client.NoObf.CinematicCam.Interfaces;
+﻿using Vintagestory.API.MathTools;
+using Vintagestory.Client.NoObf.CinematicCam.Camera;
+using Vintagestory.Client.NoObf.CinematicCam.Interfaces;
 using Vintagestory.Client.NoObf.CinematicCam.Primitives;
 
 namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
@@ -9,7 +11,7 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
     ///     Implements the <see cref="InterpolatorBase" /> base class.
     /// </summary>
     /// <seealso cref="InterpolatorBase" />
-    internal class LinearInterpolator : InterpolatorBase
+    internal sealed class LinearInterpolator : InterpolatorBase
     {
         /// <summary>
         ///     Initialises a new instance of the <see cref="LinearInterpolator" /> class.
@@ -39,9 +41,10 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         /// </param>
         public override void InterpolatePosition(InterpolationNodeArray nodeList, double step)
         {
-            Point.X = Linear(nodeList.Current.X, nodeList.Next.X, step);
-            Point.Y = Linear(nodeList.Current.Y, nodeList.Next.Y, step);
-            Point.Z = Linear(nodeList.Current.Z, nodeList.Next.Z, step);
+            Point.Position = new Vec3d(
+                Linear(nodeList.Current.X, nodeList.Next.X, step),
+                Linear(nodeList.Current.Y, nodeList.Next.Y, step),
+                Linear(nodeList.Current.Z, nodeList.Next.Z, step));
         }
 
         /// <summary>
@@ -55,8 +58,9 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         /// </param>
         public override void InterpolatePolarCoordinates(InterpolationNodeArray nodeList, double step)
         {
-            Point.Pitch = Linear(nodeList.Current.Pitch, nodeList.Next.Pitch, step);
-            Point.Yaw = Linear(nodeList.Current.Yaw, nodeList.Next.Yaw, step);
+            Point.PolarCoordinates = new PolarCoordinates(
+                Linear(nodeList.Current.Pitch, nodeList.Next.Pitch, step),
+                Linear(nodeList.Current.Yaw, nodeList.Next.Yaw, step));
         }
 
         /// <summary>

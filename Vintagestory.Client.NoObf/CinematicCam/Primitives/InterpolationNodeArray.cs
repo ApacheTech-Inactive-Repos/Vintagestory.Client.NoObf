@@ -1,9 +1,11 @@
 ﻿using System.Runtime.InteropServices;
+using Vintagestory.Client.NoObf.CinematicCam.Camera;
 
 namespace Vintagestory.Client.NoObf.CinematicCam.Primitives
 {
     /// <summary>
-    ///     Represents an ordered list of <see cref="CameraPoint" />s, which are required to interpolate between nodes along a path.
+    ///     Represents an ordered list of <see cref="CameraPoint" />s, which are required to interpolate between nodes along a
+    ///     path.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public readonly struct InterpolationNodeArray
@@ -42,7 +44,9 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Primitives
         /// <param name="nextNode">The upcoming node the player has to pass.</param>
         /// <param name="nodeAfterNext">The node after the upcoming node which is the same as the next node at the end of the path.</param>
         internal InterpolationNodeArray(
-            CameraPoint previousNode, CameraPoint currentNode, CameraPoint nextNode, CameraPoint nodeAfterNext) =>
-                (Previous, Current, Next, Subsequent) = (previousNode, currentNode, nextNode, nodeAfterNext);
+            CameraPoint previousNode, CameraPoint currentNode, CameraPoint nextNode, CameraPoint nodeAfterNext)
+        {
+            (Previous, Current, Next, Subsequent) = (previousNode, currentNode, nextNode, nodeAfterNext);
+        }
     }
 }

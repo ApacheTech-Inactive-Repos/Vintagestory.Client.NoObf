@@ -1,15 +1,17 @@
-﻿using Vintagestory.Client.NoObf.CinematicCam.Interfaces;
+﻿using Vintagestory.API.MathTools;
+using Vintagestory.Client.NoObf.CinematicCam.Camera;
+using Vintagestory.Client.NoObf.CinematicCam.Interfaces;
 using Vintagestory.Client.NoObf.CinematicCam.Primitives;
 
 namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
 {
     /// <summary>
-    ///     Interpolates values between multiple nodes along a path, using cubic 
+    ///     Interpolates values between multiple nodes along a path, using cubic
     ///     interpolation between the current node and the next node.
     ///     Implements the <see cref="InterpolatorBase" /> base class.
     /// </summary>
     /// <seealso cref="InterpolatorBase" />
-    internal class CubicInterpolator : InterpolatorBase
+    internal sealed class CubicInterpolator : InterpolatorBase
     {
         /// <summary>
         ///     Initialises a new instance of the <see cref="CubicInterpolator" /> class.
@@ -17,6 +19,15 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         /// <param name="point">The camera point to transpose values into.</param>
         private CubicInterpolator(CameraPoint point) : base(point)
         {
+        }
+
+        /// <summary>
+        ///     Initialises a new instance of the <see cref="CubicInterpolator" /> class.
+        /// </summary>
+        /// <param name="point">The camera point to transpose values into.</param>
+        internal static ICameraPointInterpolator Create(CameraPoint point)
+        {
+            return new CubicInterpolator(point);
         }
 
         /// <summary>
@@ -30,12 +41,13 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         /// </param>
         public override void InterpolatePosition(InterpolationNodeArray nodeList, double step)
         {
-            Point.X = CubicCatmull(
-                nodeList.Previous.X, nodeList.Current.X, nodeList.Next.X, nodeList.Subsequent.X, step);
-            Point.Y = CubicCatmull(
-                nodeList.Previous.Y, nodeList.Current.Y, nodeList.Next.Y, nodeList.Subsequent.Y, step);
-            Point.Z = CubicCatmull(
-                nodeList.Previous.Z, nodeList.Current.Z, nodeList.Next.Z, nodeList.Subsequent.Z, step);
+            Point.Position = new Vec3d(
+                CubicCatmull(
+                    nodeList.Previous.X, nodeList.Current.X, nodeList.Next.X, nodeList.Subsequent.X, step),
+                CubicCatmull(
+                    nodeList.Previous.Y, nodeList.Current.Y, nodeList.Next.Y, nodeList.Subsequent.Y, step),
+                CubicCatmull(
+                    nodeList.Previous.Z, nodeList.Current.Z, nodeList.Next.Z, nodeList.Subsequent.Z, step));
         }
 
         /// <summary>
@@ -49,10 +61,12 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         /// </param>
         public override void InterpolatePolarCoordinates(InterpolationNodeArray nodeList, double step)
         {
-            Point.Pitch = Cubic(
-                nodeList.Previous.Pitch, nodeList.Current.Pitch, nodeList.Next.Pitch, nodeList.Subsequent.Pitch, step);
-            Point.Pitch = Cubic(
-                nodeList.Previous.Yaw, nodeList.Current.Yaw, nodeList.Next.Yaw, nodeList.Subsequent.Yaw, step);
+            Point.PolarCoordinates = new PolarCoordinates(
+                Cubic(
+                    nodeList.Previous.Pitch, nodeList.Current.Pitch, nodeList.Next.Pitch, nodeList.Subsequent.Pitch,
+                    step),
+                Cubic(
+                    nodeList.Previous.Yaw, nodeList.Current.Yaw, nodeList.Next.Yaw, nodeList.Subsequent.Yaw, step));
         }
 
         /// <summary>
@@ -71,15 +85,6 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         {
             Point.Roll = Cubic(
                 nodeList.Previous.Pitch, nodeList.Current.Pitch, nodeList.Next.Pitch, nodeList.Subsequent.Pitch, step);
-        }
-
-        /// <summary>
-        ///     Initialises a new instance of the <see cref="CubicInterpolator" /> class.
-        /// </summary>
-        /// <param name="point">The camera point to transpose values into.</param>
-        internal static ICameraPointInterpolator Create(CameraPoint point)
-        {
-            return new CubicInterpolator(point);
         }
     }
 }
