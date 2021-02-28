@@ -45,18 +45,18 @@ namespace Vintagestory.Client.NoObf.CinematicCam.Interpolation
         ///     Calculates the camera point at the current position along the path.
         /// </summary>
         /// <param name="pathPosition">The path position.</param>
-        public CameraPoint GetPoint(int pathPosition)
+        public CameraPoint GetPoint(double pathPosition)
         {
             var section = pathPosition * _nodesToTravel;
 
-            var section1 = section;
+            var section1 = (int)section;
             if (section1 == _nodesToTravel)
                 // pathPosition unavoidably reaches the last node at the very end ->
                 // So decrement the previous node to stop the concertina effect.
                 section--;
             var section2 = section1 + 1;
 
-            double step = section - section1;
+            var step = section - section1;
 
             var section0 = section1 - 1;
             var section3 = section2 + 1;
